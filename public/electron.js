@@ -35,12 +35,23 @@ const createWindow = () => {
     });
 
     ipcMain.handle('get-scripture', (event, args) => {
-        return new Promise((resolve, reject) => db.get('select * from banis limit 1', (err, data) => {
-            // return data;
-            console.log('data:');
-            console.log(data);
-            resolve(data);
-        }));
+        return new Promise((resolve, reject) => {
+            db.all(
+                `select *,
+                CASE
+                    WHEN first_letters like '${args.q}%' THEN 1
+                    WHEN first_letters like '${args.q}%' THEN 2
+                    ELSE 3
+                END AS search_rank
+                from lines
+                where first_letters like '%${args.q}%'
+                ORDER BY search_rank asc, id
+                limit 500`,
+                (err, data) => {
+                    resolve(data);
+                }
+            );
+        });
     })
 
     // Loading a webpage inside the electron window we just created

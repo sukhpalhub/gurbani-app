@@ -17,3 +17,31 @@ html, body, #root {
     right: 0;
     bottom: 0;
 }
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+@font-face {
+    font-family: "AnmolLipi";
+    font-weight: bold;
+    src: url("./fonts/AnmolLipiBoldTrue.ttf");
+}
+
+@font-face {
+    font-family: "AnmolLipi";
+    src: url("./fonts/AnmolLipiTrue.ttf");
+}
+
+.shabad .gurmukhi {
+    font-family: AnmolLipi;
+}
+
+.search-box .gurmukhi {
+    font-family: AnmolLipi;
+}
+
+.search-box .list-group {
+    overflow: auto;
+    height: 290px; /* @todo: calculate using js */
+}
