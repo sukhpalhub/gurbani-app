@@ -12,6 +12,7 @@
 # production
 /build
 /userdata
+/db
 
 # misc
 .DS_Store

@@ -1,8 +1,23 @@
-const { app, BrowserWindow } = require('electron'); // electron
+const { app, BrowserWindow, ipcMain } = require('electron'); // electron
 const isDev = require('electron-is-dev'); // To check if electron is in development mode
 const path = require('path');
+const sqlite3 = require('sqlite3');
 
 let mainWindow;
+
+// Initializing a new database
+const db = new sqlite3.Database(
+    isDev
+        ? path.join(__dirname, '../db/gurbani.sqlite') // my root folder if in dev mode
+        : path.join(process.resourcesPath, 'db/gurbani.sqlite'), // the resources path if in production build
+    (err) => {
+        if (err) {
+            console.log(`Database Error: ${err}`);
+        } else {
+            console.log('Database Loaded');
+        }
+    }
+);
 
 // Initializing the Electron Window
 const createWindow = () => {
@@ -18,6 +33,15 @@ const createWindow = () => {
             contextIsolation: true, // Isolating context so our app is not exposed to random javascript executions making it safer.
         },
     });
+
+    ipcMain.handle('get-scripture', (event, args) => {
+        return new Promise((resolve, reject) => db.get('select * from banis limit 1', (err, data) => {
+            // return data;
+            console.log('data:');
+            console.log(data);
+            resolve(data);
+        }));
+    })
 
     // Loading a webpage inside the electron window we just created
     mainWindow.loadURL(
@@ -62,6 +86,7 @@ app.whenReady().then(async () => {
 
 // Exiting the app
 app.on('window-all-closed', () => {
+    console.log(process.platform);
     if (process.platform !== 'darwin') {
         app.quit();
     }

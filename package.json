@@ -12,6 +12,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
+    "sqlite3": "^5.0.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -44,12 +45,16 @@
       {
         "from": ".db/",
         "to": "db/",
-        "filter": [ "**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "win": {
       "icon": "./build/images/apicon.ico",
-      "target": ["7z"]
+      "target": [
+        "7z"
+      ]
     }
   },
   "eslintConfig": {
