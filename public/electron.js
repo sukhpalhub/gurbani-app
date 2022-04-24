@@ -22,6 +22,7 @@ const db = new sqlite3.Database(
 // Initializing the Electron Window
 const createWindow = () => {
     mainWindow = new BrowserWindow({
+        fullscreen: true,
         width: 600, // width of window
         height: 600, // height of window
         webPreferences: {
@@ -52,7 +53,27 @@ const createWindow = () => {
                 }
             );
         });
-    })
+    });
+
+    ipcMain.handle('get-shabad', (event, args) => {
+        return new Promise((resolve, reject) => {
+            db.all(
+                `select *, pt.translation as punjabi, et.translation as english
+                from lines
+                left join translations as pt on lines.id = pt.line_id
+                    AND pt.translation_source_id = 6
+                left join translations as et on lines.id = et.line_id
+                    AND et.translation_source_id = 2
+                where shabad_id = '${args.id}'
+                ORDER BY order_id`,
+                (err, data) => {
+                    console.log(err);
+                    console.log(data);
+                    resolve(data);
+                }
+            );
+        });
+    });
 
     // Loading a webpage inside the electron window we just created
     mainWindow.loadURL(

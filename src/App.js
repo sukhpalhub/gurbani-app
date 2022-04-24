@@ -1,24 +1,40 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
-import {Col, Container, Row} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GurbaniSearchPanel from "./components/search/GurbaniSearchPanel";
+import ShabadPanel from "./components/shabad/ShabadPanel";
+import {ShabadContext} from "./contexts/ShabadContext";
 
-function App() {
-  return (
-      <Container fluid style={{height: '100%'}}>
-        <Row className="gurmukhi-row">
-          <Col>test</Col>
-        </Row>
-        <Row className="punjabi-row">
-          <Col></Col>
-        </Row>
-        <Row className="english-row">
-          <Col></Col>
-        </Row>
-        <GurbaniSearchPanel />
-      </Container>
-  );
+export default class App extends Component {
+    setShabad = (shabad) => {
+        this.setState({shabad: shabad});
+    }
+
+    setPreferences = (pref) => {
+        this.setState({preferences: pref});
+    }
+
+    state = {
+        shabad: {
+            id: null,
+            lines: [],
+        },
+        preferences: {
+            vishrams: false,
+            shabad: {
+                gurbaniFontSize: 7,
+            }
+        },
+        setShabad: this.setShabad,
+        setPreferences: this.setPreferences
+    }
+
+    render() {
+        return (
+            <ShabadContext.Provider value={this.state}>
+                <ShabadPanel/>
+                <GurbaniSearchPanel/>
+            </ShabadContext.Provider>
+        );
+    }
 }
-
-export default App;
