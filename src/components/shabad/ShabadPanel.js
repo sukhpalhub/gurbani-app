@@ -25,6 +25,7 @@ export default class ShabadPanel extends Component {
 
     render() {
         const {lines, line_index} = this.context.shabad;
+        const preferences = this.context.preferences;
         return (
             <ShabadContext.Consumer>
                 {context => (
@@ -48,7 +49,7 @@ export default class ShabadPanel extends Component {
                                }}
                     >
                         <Row className="gurbani-row">
-                            <Col className="gurmukhi">
+                            <Col className="gurmukhi" style={{fontSize: preferences.shabad.gurbaniFontSize + 'rem'}}>
                                 { lines.length > 0 ?
                                     lines[line_index].gurmukhi
                                     : ''
@@ -56,7 +57,7 @@ export default class ShabadPanel extends Component {
                             </Col>
                         </Row>
                         <Row className="punjabi-row">
-                            <Col>
+                            <Col style={{fontSize: preferences.shabad.punjabiFontSize + 'rem'}}>
                                 { lines.length > 0 ?
                                     lines[line_index].punjabi
                                     : ''
@@ -64,7 +65,7 @@ export default class ShabadPanel extends Component {
                             </Col>
                         </Row>
                         <Row className="english-row">
-                            <Col>
+                            <Col style={{fontSize: preferences.shabad.englishFontSize + 'rem'}}>
                                 { this.state.lines.length > 0 ?
                                     lines[line_index].english
                                     : ''

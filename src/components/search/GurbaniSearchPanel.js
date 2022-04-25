@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Button, ButtonGroup, Card, Form, InputGroup, ListGroup, Navbar} from "react-bootstrap";
-import {DashSquare, JournalAlbum, MenuUp, PlusSquare, Search} from "react-bootstrap-icons";
+import {Button, ButtonGroup, Card, Form, InputGroup, ListGroup, ListGroupItem, Navbar} from "react-bootstrap";
+import {DashCircle, DashSquare, JournalAlbum, MenuUp, PlusSquare, Search, SearchHeart} from "react-bootstrap-icons";
 import {ShabadContext} from "../../contexts/ShabadContext";
 
 export default class GurbaniSearchPanel extends Component {
@@ -16,6 +16,7 @@ export default class GurbaniSearchPanel extends Component {
         tab_display: {
             search_tab: true,
             shabad_tab: false,
+            settings_tab: false,
         }
     };
 
@@ -51,6 +52,7 @@ export default class GurbaniSearchPanel extends Component {
         this.setState({tab_display: {
             search_tab: true,
             shabad_tab: false,
+            settings_tab: false,
         }});
     }
 
@@ -58,6 +60,15 @@ export default class GurbaniSearchPanel extends Component {
         this.setState({tab_display: {
             search_tab: false,
             shabad_tab: true,
+            settings_tab: false,
+        }});
+    }
+
+    showSettingsTab = () => {
+        this.setState({tab_display: {
+            search_tab: false,
+            shabad_tab: false,
+            settings_tab: true,
         }});
     }
 
@@ -119,6 +130,13 @@ export default class GurbaniSearchPanel extends Component {
 
     render() {
         const {tab_display} = this.state;
+        let sizeLabelStyle = {
+            width: "390px",
+            textAlign: "right",
+            paddingRight: "10px",
+            paddingTop: "10px"
+        };
+
         return (
             <ShabadContext.Consumer>
                 {context => (
@@ -184,6 +202,82 @@ export default class GurbaniSearchPanel extends Component {
                                         </div>
                                     }
 
+                                    {
+                                        tab_display.settings_tab &&
+                                        <ListGroup>
+                                            <ListGroupItem>
+                                            <InputGroup>
+                                                <Form.Label className="col-md-8">Gurmukhi Size</Form.Label>
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.gurbaniFontSize--;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary"
+                                                >-</Button>
+                                                <Form.Control
+                                                    type="text"
+                                                    value={context.preferences.shabad.gurbaniFontSize}
+                                                />
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.gurbaniFontSize++;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary"
+                                                >+</Button>
+                                            </InputGroup>
+                                            </ListGroupItem>
+                                            <ListGroupItem>
+                                            <InputGroup className="mt-2">
+                                                <Form.Label className="col-md-8">Punjabi Size</Form.Label>
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.punjabiFontSize--;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary"
+                                                >-</Button>
+                                                <Form.Control
+                                                    type="text"
+                                                    value={context.preferences.shabad.punjabiFontSize}
+                                                />
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.punjabiFontSize++;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary"
+                                                >+</Button>
+                                            </InputGroup>
+                                            </ListGroupItem>
+                                            <ListGroupItem>
+                                            <InputGroup className="mt-2">
+                                                <Form.Label className="col-md-8">English Size</Form.Label>
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.englishFontSize--;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary col-md-1"
+                                                >-</Button>
+                                                <Form.Control
+                                                    className="col-md-2"
+                                                    type="text"
+                                                    value={context.preferences.shabad.englishFontSize}
+                                                />
+                                                <Button onClick={(e) => {
+                                                    let pref = context.preferences;
+                                                    pref.shabad.englishFontSize++;
+                                                    context.setPreferences(pref);
+                                                }}
+                                                    className="btn-secondary col-md-1"
+                                                >+</Button>
+                                            </InputGroup>
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                    }
+
                                     <Navbar bg="light" className="d-block">
                                         <Search
                                             onClick={() => {
@@ -194,6 +288,12 @@ export default class GurbaniSearchPanel extends Component {
                                             className="pl-3"
                                             onClick={() => {
                                                 this.showShabadTab()
+                                            }}
+                                        />
+                                        <SearchHeart
+                                            className="pl-3"
+                                            onClick={() => {
+                                                this.showSettingsTab()
                                             }}
                                         />
                                     </Navbar>

@@ -23,6 +23,8 @@ export default class App extends Component {
             vishrams: false,
             shabad: {
                 gurbaniFontSize: 7,
+                punjabiFontSize: 5,
+                englishFontSize: 4,
             }
         },
         setShabad: this.setShabad,
