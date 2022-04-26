@@ -44,7 +44,10 @@ export default class GurbaniSearchPanel extends Component {
             this.setState({
                 results: this.adjustVirshrams(data)
             })
+        }).catch((err) => {
+            console.log(err);
         });
+
         return null;
     }
 

@@ -13,6 +13,8 @@
 /build
 /userdata
 /db
+/dist
+/out
 
 # misc
 .DS_Store

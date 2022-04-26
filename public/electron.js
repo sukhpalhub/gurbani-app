@@ -9,7 +9,7 @@ let mainWindow;
 const db = new sqlite3.Database(
     isDev
         ? path.join(__dirname, '../db/gurbani.sqlite') // my root folder if in dev mode
-        : path.join(process.resourcesPath, 'db/gurbani.sqlite'), // the resources path if in production build
+        : path.join(process.resourcesPath, '/app/db/gurbani.sqlite'), // the resources path if in production build
     (err) => {
         if (err) {
             console.log(`Database Error: ${err}`);
@@ -49,6 +49,11 @@ const createWindow = () => {
                 ORDER BY search_rank asc, id
                 limit 500`,
                 (err, data) => {
+                    if (err != null) {
+                        reject(err);
+                        return;
+                    }
+
                     resolve(data);
                 }
             );
