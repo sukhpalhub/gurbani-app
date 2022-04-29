@@ -36,28 +36,32 @@ export default class ShabadPanel extends Component {
                                    switch (e.key) {
                                        case 'ArrowLeft':
                                            this.context.shabad.prevLine();
+                                           e.preventDefault();
                                            break;
                                        case 'ArrowRight':
                                            this.context.shabad.nextLine();
+                                           e.preventDefault();
                                            break;
                                        case ' ':
                                        case 'ArrowDown':
                                            this.context.shabad.homeLine();
+                                           e.preventDefault();
                                            break;
                                        case 's':
                                        case 'S':
                                            this.context.shabad.showSearchTab();
+                                           e.preventDefault();
                                            break;
                                        case 'm':
                                        case 'M':
                                            this.context.shabad.toggleSearchBox();
+                                           e.preventDefault();
                                            break;
                                        case 'ArrowUp':
                                            this.context.shabad.autoNext();
+                                           e.preventDefault();
                                            break;
                                    }
-
-                                   e.preventDefault();
                                }}
                     >
                         <Row className="gurbani-row">
