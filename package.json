@@ -1,6 +1,7 @@
 {
   "name": "gurbani-app",
   "description": "Gurbani application for desktop.",
+  "author": "SinghECloud",
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",

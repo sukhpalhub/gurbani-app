@@ -41,11 +41,23 @@ export default class ShabadPanel extends Component {
                                            this.context.shabad.nextLine();
                                            break;
                                        case ' ':
-                                       case 'ArrowUp':
+                                       case 'ArrowDown':
                                            this.context.shabad.homeLine();
-                                           break
+                                           break;
+                                       case 's':
+                                       case 'S':
+                                           this.context.shabad.showSearchTab();
+                                           break;
+                                       case 'm':
+                                       case 'M':
+                                           this.context.shabad.toggleSearchBox();
+                                           break;
+                                       case 'ArrowUp':
+                                           this.context.shabad.autoNext();
+                                           break;
                                    }
-                                   console.log(e.key);
+
+                                   e.preventDefault();
                                }}
                     >
                         <Row className="gurbani-row">
